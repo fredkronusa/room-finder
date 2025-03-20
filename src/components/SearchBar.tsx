@@ -67,7 +67,6 @@ function SearchBar() {
       } else if (event.key === "Enter" && selectedIndex >= 0) {
         handleSuggestionClick(suggestions[selectedIndex]);
         event.preventDefault();
-        console.log(suggestions[selectedIndex].categoryName);
 
         navigateToObject(
           suggestions[selectedIndex].name,
