@@ -15,7 +15,6 @@ function MobileRouteDetails() {
         <h1 className="text-gray-900 text-xl font-semibold mb-1">
           {object?.name}
         </h1>
-        <p className="text-gray-500 text-sm">{object?.categoryName}</p>
       </div>
       <div className="bg-gray-200 text-gray-900 px-3 py-1 center w-fit rounded-md text-sm font-semibold m-3">
         <TbRoute className="inline-block mr-1" />
