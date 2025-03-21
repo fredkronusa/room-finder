@@ -18,19 +18,27 @@ function IndoorMapWrapper() {
   const positionRadius = isMobile ? 10 : 8;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [barcode, setBarcode] = useState('');
+
+  const { navigation, setNavigation } = useContext(
+    NavigationContext
+  ) as NavigationContextType;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // Append the key to the barcode string
       setBarcode((prev) => {
         console.log('===========', prev);
+       
         return prev + event.key
       });
 
       // If "Enter" is pressed, assume the barcode is complete
       if (event.key === 'Enter') {
-        alert('Hello'); 
+        
+        navigateToObject("Wagga Wagga", navigation, setNavigation);
+        setIsPopoverOpen(true);
         setBarcode('');  
       }
     };
@@ -52,14 +60,17 @@ function IndoorMapWrapper() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleClosePopover = () => {
+    setIsPopoverOpen(false);
+  };
   
-  const { navigation, setNavigation } = useContext(
-    NavigationContext
-  ) as NavigationContextType;
+  // position: 'absolute', top: 0, left: '50%' , zIndex: 1000
   
   const handleObjectClick = async(e: React.MouseEvent<SVGPathElement>) => {
       const targetId = (e.target as HTMLElement).id;
       const selectedObject = objects.find((obj) => obj.name === targetId);
+      console.log('-------selectedObject.name', selectedObject?.name)
    
      handleOpenModal()
      
@@ -73,7 +84,12 @@ function IndoorMapWrapper() {
 
   return (
     <div className="relative w-full h-full bg-white center"  >
-     
+     <Modal popoverModal style={{ }} isOpen={isPopoverOpen} onClose={handleClosePopover}>
+      Hello  
+      You next meeting room is in Wagga Wagga
+
+      <div style={{width: 200, height: 100, backgroundColor: 'white'}}></div>
+       </Modal>
       <TransformWrapper
         centerOnInit
         minScale={isMobile ? 0.4 : 1}
@@ -84,7 +100,7 @@ function IndoorMapWrapper() {
          
       >
         <TransformComponent wrapperClass="bg-white" >
-        <Modal style={{ left: '50%', position: 'absolute'}} isOpen={isModalOpen} onClose={handleCloseModal}> 
+        <Modal  style={{ left: '50%', position: 'absolute'}} isOpen={isModalOpen} onClose={handleCloseModal}> 
            
       
            
