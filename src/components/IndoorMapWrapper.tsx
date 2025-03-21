@@ -19,6 +19,8 @@ function IndoorMapWrapper() {
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [barcode, setBarcode] = useState('');
+  const [roomName, setRoomName] = useState('');
+  const [roomDescription, setRoomDescription] = useState('');
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -60,8 +62,10 @@ function IndoorMapWrapper() {
   const handleObjectClick = async(e: React.MouseEvent<SVGPathElement>) => {
       const targetId = (e.target as HTMLElement).id;
       const selectedObject = objects.find((obj) => obj.name === targetId);
+      setRoomName(selectedObject?.name ?? '');
+      setRoomDescription(selectedObject?.desc ?? '');
    
-     handleOpenModal()
+      handleOpenModal()
      
       if (selectedObject?.id) {
         navigateToObject(selectedObject.name, navigation, setNavigation);
@@ -85,18 +89,12 @@ function IndoorMapWrapper() {
       >
         <TransformComponent wrapperClass="bg-white" >
         <Modal style={{ left: '50%', position: 'absolute'}} isOpen={isModalOpen} onClose={handleCloseModal}> 
-           
-      
-           
-            <h2 className="modal-title">Room Details</h2>
-            <div className="modal-body">
-              <p>Room Name: Room 1</p>
-              <p>Room Type: Meeting Room</p>
-              <p>Room Capacity: 10</p>
-              <p>Room Location: Ground Floor</p>
-              <p>Room Description: This is a meeting room</p>
-            </div>
-         
+          <h2 className="modal-title">{roomName}</h2>
+          <div className="modal-body">
+            <p>Level: 3</p>
+            <p>{roomDescription}</p>
+            <p>Availability: <span className="status">RESERVED</span></p>
+          </div>
         </Modal>
           <MapBackground>
             {/*Objects are the clickable areas on the map e.g. Rooms, Desks, ...*/}

@@ -30,6 +30,21 @@
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s;
+    min-width: 350px;
+  }
+
+  .status {
+    color: firebrick;
+  }
+
+  .modal-title {
+    font-weight: bold;
+  }
+
+  .modal-close {
+    float: right;
+    font-size: 24px;
+    margin-top: -10px;
   }
   
   .close-button {
