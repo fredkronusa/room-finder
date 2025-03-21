@@ -68,6 +68,13 @@ function IndoorMapWrapper() {
       handleOpenModal()
      
       if (selectedObject?.id) {
+          const parentElement = document.getElementById("Objects");
+          if (parentElement) {
+              const elements = parentElement.querySelectorAll(".object");
+              elements.forEach((el) => el.classList.remove("selected"));
+              document.getElementById(targetId)?.classList.add("selected");
+          }
+
         navigateToObject(selectedObject.name, navigation, setNavigation);
       } else {
         toast.error("Object not found");
@@ -100,7 +107,7 @@ function IndoorMapWrapper() {
             {/*Objects are the clickable areas on the map e.g. Rooms, Desks, ...*/}
             <Objects
               handleObjectClick={handleObjectClick}
-              className="hover:cursor-pointer hover:opacity-50"
+              className="hover:cursor-pointer hover:opacity-50 occupied"
             />
 
             {/*Edges are the lines on the map aka the paths*/}
