@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { MapDataContext, NavigationContext } from "../pages/BunningsMap";
@@ -18,6 +18,31 @@ function IndoorMapWrapper() {
   const positionRadius = isMobile ? 10 : 8;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [barcode, setBarcode] = useState('');
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Append the key to the barcode string
+      setBarcode((prev) => {
+        console.log('===========', prev);
+        return prev + event.key
+      });
+
+      // If "Enter" is pressed, assume the barcode is complete
+      if (event.key === 'Enter') {
+        alert('Hello'); 
+        setBarcode('');  
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
   
 
   const handleOpenModal = () => {
