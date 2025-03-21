@@ -65,6 +65,9 @@
     right: 0
   }
   
+  .modal-popover{
+    position: absolute; top: 0; z-index: 1000
+  }
   @keyframes fadeIn {
     from {
       opacity: 0;

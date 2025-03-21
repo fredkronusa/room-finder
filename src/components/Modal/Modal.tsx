@@ -7,13 +7,14 @@ interface ModalProps {
   title?: string;
   children: React.ReactNode;
   style: React.CSSProperties;
+  popoverModal?: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, popoverModal }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay"  >
+    <div className={popoverModal ? "modal-popover": "modal-overlay" } >
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>
           &times;

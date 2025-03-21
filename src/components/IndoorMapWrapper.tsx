@@ -18,6 +18,7 @@ function IndoorMapWrapper() {
   const positionRadius = isMobile ? 10 : 8;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [barcode, setBarcode] = useState('');
   const [roomName, setRoomName] = useState('');
   const [roomDescription, setRoomDescription] = useState('');
@@ -32,7 +33,8 @@ function IndoorMapWrapper() {
 
       // If "Enter" is pressed, assume the barcode is complete
       if (event.key === 'Enter') {
-        alert('Hello'); 
+        navigateToObject("Wagga Wagga", navigation, setNavigation);
+        setIsPopoverOpen(true);
         setBarcode('');  
       }
     };
@@ -54,7 +56,10 @@ function IndoorMapWrapper() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  
+  const handleClosePopover = () => {
+    setIsPopoverOpen(false);
+  };
+
   const { navigation, setNavigation } = useContext(
     NavigationContext
   ) as NavigationContextType;
@@ -84,7 +89,13 @@ function IndoorMapWrapper() {
 
   return (
     <div className="relative w-full h-full bg-white center"  >
-     
+        <Modal popoverModal style={{ }} isOpen={isPopoverOpen} onClose={handleClosePopover}>
+      <h4>Hello, Fred</h4>
+      <h6>You next meeting room is in Wagga Wagga</h6>
+      
+
+      <div style={{width: 200, height: 100, backgroundColor: 'white'}}></div>
+       </Modal>
       <TransformWrapper
         centerOnInit
         minScale={isMobile ? 0.4 : 1}
