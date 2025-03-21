@@ -41,6 +41,10 @@
     font-weight: bold;
   }
 
+  .hidden {
+    display: none;
+  }
+
   .modal-close {
     float: right;
     font-size: 24px;

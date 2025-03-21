@@ -101,6 +101,7 @@ function IndoorMapWrapper() {
             <p>Level: 3</p>
             <p>{roomDescription}</p>
             <p>Availability: <span className="status">RESERVED</span></p>
+            <p className="hidden">{barcode}</p>
           </div>
         </Modal>
           <MapBackground>
